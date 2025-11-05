@@ -15,6 +15,9 @@ class PreventsRobotsIndexing
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $response = $next($request);
+        $response->headers->set('X-Robots-Tag', 'noindex, nofollow', false);
+        
         return $next($request);
     }
 }

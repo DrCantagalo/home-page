@@ -15,6 +15,9 @@ class CheckCookieConsent
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (!session('permission', false)) {session(['show_cookie' => true]); }
+        elseif (session('show_cookie', false))  { session()->forget('show_cookie'); }
+        
         return $next($request);
     }
 }

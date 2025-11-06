@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\MonitorController;
 
 Route::middleware(['check.cookie'])->group(function () {
@@ -41,11 +42,11 @@ Route::middleware(['avoid.robots'])->group(function () {
             App::setLocale($lang);
         }
         if(session('avoid_monitor')) { session()->forget('avoid_monitor'); }
-        if (!session('show_cookie')) { return view('fallback'); }
-        else {
-            session()->forget('show_cookie');
+        //if (!session('show_cookie')) { return view('fallback'); }
+        //else {
+            //session()->forget('show_cookie');
             return view('popups.cookies')->with(['lang' => $lang, 'domain' => 'monitor']);
-        }
+        //}
     });
 
     Route::post('signin', [MonitorController::class, 'signin']);

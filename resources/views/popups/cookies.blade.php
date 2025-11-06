@@ -6,7 +6,7 @@
 
         @include('partials.lang-switcher', ['option' => 1, 'lang' => $lang])
 
-        <h2 class="text-lg font-semibold">@lang('Your Privacy is Important')</h2>
+        <h2 class="text-lg font-semibold">@lang('Your Privacy is Important') - {{json_encode(session()->all())}}</h2>
 
         <p class="text-xs leading-relaxed">
             @lang('This website uses cookies to personalize your experience. To understand how we use your data, please read our')

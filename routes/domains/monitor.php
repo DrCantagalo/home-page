@@ -29,7 +29,7 @@ Route::middleware(['check.cookie'])->group(function () {
 
 });
 
-Route::middleware(['avoid.robots'])->group(function () {
+Route::middleware(['avoid.robots', 'check.cookie'])->group(function () {
 
     Route::get('cookies', function(){
         if(session('templang', false)) { 

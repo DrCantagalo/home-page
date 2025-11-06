@@ -43,10 +43,10 @@ Route::middleware(['avoid.robots'])->group(function () {
         }
         if(session('avoid_monitor')) { session()->forget('avoid_monitor'); }
         if (!session('show_cookie')) { return view('fallback'); }
-        //else {
+        else {
             //session()->forget('show_cookie');
-            return view('popups.cookies')->with(['lang' => $lang, 'domain' => 'monitor', 'debug' => json_encode(session()->all())]);
-        //}
+            return view('popups.cookies')->with(['lang' => $lang, 'domain' => 'monitor']);
+        }
     });
 
     Route::post('signin', [MonitorController::class, 'signin']);

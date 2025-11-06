@@ -14,7 +14,7 @@ use App\Models\User;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Auth;
 
-class MonitorServices
+class MonitorService
 {
     public function initiatesignup(Request $request)
     {

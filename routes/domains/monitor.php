@@ -42,11 +42,11 @@ Route::middleware(['avoid.robots'])->group(function () {
             App::setLocale($lang);
         }
         if(session('avoid_monitor')) { session()->forget('avoid_monitor'); }
-        if (!session('show_cookie')) { return view('fallback')->with('domain', 'monitor'); }
-        else {
+        if (session('show_cookie')) { 
             session()->forget('show_cookie');
             return view('popups.cookies')->with(['lang' => $lang, 'domain' => 'monitor']);
         }
+        else { return view('fallback')->with('domain', 'monitor'); }
     });
 
     Route::post('signin', [MonitorController::class, 'signin']);

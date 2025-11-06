@@ -7,13 +7,10 @@ import $ from 'jquery';
 $(function(){
     let currentURL = window.location.href;
     let currentFile = currentURL.substring(currentURL.lastIndexOf('/') + 1) || 'index';
-    if (!window.AppData.cookiePermission && currentFile !== 'legal') { 
+    if (!window.AppData.cookiePermission && !currentFile.includes('legal')) { 
         if (localStorage.getItem('visit_token') !== null) {
-            let formData = {
-                'id-token': localStorage.getItem('visit_token'),
-                'user-verb': 'remember-me'
-            };
-            $.post('handler', formData, function(result) { 
+            let formData = { 'id-token': localStorage.getItem('visit_token') };
+            $.post('rememberme', formData, function(result) { 
                 if(result.status == 'error') { 
                     localStorage.clear();
                     cookiePermission();
@@ -50,10 +47,9 @@ function cookiePermission() {
 function changeLang(lang, option) {
     var frontData = {
         "lang":lang,
-        "user-verb":"change-lang",
         "cookie-box":option
     };
-    $.post('handler', frontData, function(){ 
+    $.post('changelanguage', frontData, function(){ 
         if (option) { cookiePermission(); }
         else { window.location.reload(); }
     });
@@ -83,7 +79,7 @@ $(document).on('submit', '#cookie-form', async function(e) {
         formArray.push({name: "id-token", value: idToken});
         localStorage.setItem('visit_token', idToken);
     }
-    $.post('handler', formArray, function(result) { 
+    $.post('cookiepermission', formArray, function(result) { 
         if(result.lang_changed) { location.reload(); }
         $('#cookies').fadeOut(200);
     });

@@ -35,7 +35,5 @@
             class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition">
             @lang('Send')
         </button>
-
-        <input type="hidden" name="user-verb" value="cookie-permission">
     </form>
 </div>

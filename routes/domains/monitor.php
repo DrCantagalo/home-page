@@ -45,7 +45,7 @@ Route::middleware(['avoid.robots'])->group(function () {
         //if (!session('show_cookie')) { return view('fallback'); }
         //else {
             //session()->forget('show_cookie');
-            return view('popups.cookies')->with(['lang' => $lang, 'domain' => 'monitor']);
+            return view('popups.cookies')->with(['lang' => $lang, 'domain' => 'monitor', 'debug' => json_encode(session()->all())]);
         //}
     });
 

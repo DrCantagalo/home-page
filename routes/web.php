@@ -24,11 +24,11 @@ Route::middleware(['avoid.robots'])->group(function () {
             App::setLocale($lang);
         }
         if(session('avoid_monitor')) { session()->forget('avoid_monitor'); }
-        if (!session('show_cookie')) { return view('fallback'); }
-        else {
-            session()->forget('show_cookie');
+        //if (!session('show_cookie')) { return view('fallback'); }
+        //else {
+            //session()->forget('show_cookie');
             return view('popups.cookies')->with('lang', $lang);
-        }
+        //}
     });
 
     Route::post('changelanguage', [GlobalController::class, 'changelanguage']);

@@ -38,7 +38,7 @@
         </header>
         @yield('main')
         <footer class="w-full py-4 bg-gray-100 text-center text-sm text-gray-600">
-            <a href="{{ route('monitor.legal') }}" target="_blank" 
+            <a href="{{ route('monitor.legal') }}" 
             class="hover:text-gray-800 hover:font-medium transition">
                 @lang('Terms of use and privacy policy')
             </a>

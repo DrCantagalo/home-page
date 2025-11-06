@@ -29,7 +29,7 @@ Route::middleware(['check.cookie'])->group(function () {
 
 });
 
-Route::middleware(['avoid.robots', 'check.cookie'])->group(function () {
+Route::middleware(['avoid.robots'])->group(function () {
 
     Route::get('cookies', function(){
         if(session('templang', false)) { 
@@ -38,7 +38,7 @@ Route::middleware(['avoid.robots', 'check.cookie'])->group(function () {
             session()->forget('templang');
         }
         else { 
-            $lang = session('lang');
+            $lang = session('lang', 'en');
             App::setLocale($lang);
         }
         if(session('avoid_monitor')) { session()->forget('avoid_monitor'); }

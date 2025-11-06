@@ -1,4 +1,3 @@
-@php session()->forget('show_cookie'); @endphp
 <div id="cookie-overlay" 
     class="fixed inset-0 bg-gray-800/40 backdrop-blur-sm z-101 flex items-end justify-end p-4">
 

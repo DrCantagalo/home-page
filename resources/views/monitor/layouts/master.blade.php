@@ -3,12 +3,12 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="{{ Vite::asset('resources/images/favicon.png') }}" type="image/png">
+        <link rel="icon" href="{{ Vite::asset('resources/images/monitor/favicon.png') }}" type="image/png">
         <meta property="og:url" content="https://monitor.cantagalo.it">
         <meta property="og:type" content="website">
         <meta property="og:title" content="Laravel Monitor - @yield('title')">
         <meta property="og:description" content="@yield('description')">
-        <meta property="og:image" content="{{ Vite::asset('resources/images/og.jpg') }}">
+        <meta property="og:image" content="{{ Vite::asset('resources/images/monitor/og.jpg') }}">
         <meta name="csrf-token" content="{{ csrf_token(); }}">
         <title>Laravel Monitor - @yield('title')</title>
         <script>window.AppData = { cookiePermission: @json(session('permission', false)) };</script>

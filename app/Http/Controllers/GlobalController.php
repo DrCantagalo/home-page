@@ -15,8 +15,7 @@ class GlobalController extends Controller
     }
 
     public function changelanguage(Request $request) {
-        return 'inside global controller';
-        //return $this->handler->changelanguage($request);
+        return $this->handler->changelanguage($request);
     }
 
     public function rememberme(Request $request) {

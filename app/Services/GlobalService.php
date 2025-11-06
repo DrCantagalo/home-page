@@ -10,7 +10,8 @@ class GlobalService
 {
     public function changelanguage(Request $request)
     {
-        $request->validate([
+        return 'inside global service';
+        /*$request->validate([
             'lang' => 'required|in:en,it,pt', 
             'cookie-box' => 'nullable|boolean'
         ]);
@@ -33,7 +34,7 @@ class GlobalService
             'status' => 'ok',
             'action' => 'change-lang',
             'lang' => $lang
-        ]);
+        ]);*/
     }
 
     public function rememberme(Request $request)

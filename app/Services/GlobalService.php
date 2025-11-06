@@ -14,9 +14,10 @@ class GlobalService
             'lang' => 'required|in:en,it,pt', 
             'cookie-box' => 'nullable|boolean'
         ]);
-        return 'validadeted';/*
         $lang = $request->input('lang');
         $cookie_box = $request->input('cookie-box', false);
+        
+        return $lang . ' - ' . $cookie_box;/*
         if($cookie_box) { 
             Session::put('templang', $lang);
             Session::put('show_cookie', $lang);

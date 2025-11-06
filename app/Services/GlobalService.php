@@ -16,8 +16,6 @@ class GlobalService
         ]);
         $lang = $request->input('lang');
         $cookie_box = $request->input('cookie-box', false);
-        
-        return $lang . ' - ' . $cookie_box;/*
         if($cookie_box) { 
             Session::put('templang', $lang);
             Session::put('show_cookie', $lang);
@@ -31,6 +29,8 @@ class GlobalService
             }
         }
         Session::put('avoid_monitor', 1);
+        
+        return json_encode(session()->all());/*
         return response()->json([
             'status' => 'ok',
             'action' => 'change-lang',

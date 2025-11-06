@@ -1,7 +1,7 @@
 @extends($domain . '.layouts.master')
 @section('title', __('Terms of use and privacy policy'))
 @section('description', __("Terms of use and privacy policy"))
-@if($domain == 'main') { @section('meta-image', Vite::asset('resources/images/OGbw.png')) }
+@if($domain == 'main') { @section('meta-image', Vite::asset('resources/images/OGbw.png')) }@endif
 @section('main')
 <main class="pt-16 max-w-3xl mx-auto px-6 py-12 text-gray-800 leading-relaxed">
     <article class="mb-12">

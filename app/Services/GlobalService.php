@@ -10,11 +10,11 @@ class GlobalService
 {
     public function changelanguage(Request $request)
     {
-        return 'inside global service';
-        /*$request->validate([
+        $request->validate([
             'lang' => 'required|in:en,it,pt', 
             'cookie-box' => 'nullable|boolean'
         ]);
+        return 'validadeted';/*
         $lang = $request->input('lang');
         $cookie_box = $request->input('cookie-box', false);
         if($cookie_box) { 

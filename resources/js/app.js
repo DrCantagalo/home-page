@@ -49,8 +49,7 @@ function changeLang(lang, option) {
         "lang":lang,
         "cookie-box":option
     };
-    $.post('changelanguage', frontData, function(data){
-        console.log(data); 
+    $.post('changelanguage', frontData, function(){
         if (option) { cookiePermission(); }
         else { window.location.reload(); }
     });

@@ -35,16 +35,13 @@ Route::middleware(['avoid.robots'])->group(function () {
         $debug = json_encode(session()->all());
         if(session('templang', false)) { 
             $lang = session('templang');
-            App::setLocale($lang);
             session()->forget('templang');
         }
-        else { 
-            $lang = session('lang', 'en');
-            App::setLocale($lang);
-        }
+        else { $lang = session('lang', 'en'); }
         if(session('avoid_monitor')) { session()->forget('avoid_monitor'); }
         if (session('show_cookie')) { 
             session()->forget('show_cookie');
+            App::setLocale($lang);
             return view('popups.cookies')->with(['lang' => $lang, 'domain' => 'monitor', 'debug' => $debug]);
         }
         else { return view('fallback')->with('domain', 'monitor'); }

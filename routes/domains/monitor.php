@@ -44,7 +44,6 @@ Route::middleware(['avoid.robots'])->group(function () {
         if(session('avoid_monitor')) { session()->forget('avoid_monitor'); }
         if (!session('show_cookie')) { return view('fallback'); }
         else {
-            session()->forget('show_cookie');
             return view('popups.cookies')->with(['lang' => $lang, 'domain' => 'monitor']);
         }
     });

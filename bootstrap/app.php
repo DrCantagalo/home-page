@@ -13,9 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         
-        $middleware->append(SetLocaleMethod::class);
-        
         $middleware->alias([
+            'set.locale' => \App\Http\Middleware\SetLocaleMethod::class,
             'check.cookie' => \App\Http\Middleware\CheckCookieConsent::class,
             'avoid.robots' => \App\Http\Middleware\PreventsRobotsIndexing::class,
         ]);

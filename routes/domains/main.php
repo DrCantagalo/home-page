@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
 
-Route::middleware(['check.cookie'])->group(function () {
+Route::middleware(['set.locale', 'check.cookie'])->group(function () {
 
     Route::get('/', function () {
         return view('main.index');
@@ -28,15 +28,15 @@ Route::middleware(['avoid.robots'])->group(function () {
             session()->forget('templang');
         }
         else { 
-            $lang = session('lang');
+            $lang = session('lang', 'en');
             App::setLocale($lang);
         }
         if(session('avoid_monitor')) { session()->forget('avoid_monitor'); }
-        if (!session('show_cookie')) { return view('fallback'); }
-        else {
+        if (session('show_cookie')) { 
             session()->forget('show_cookie');
             return view('popups.cookies')->with(['lang' => $lang, 'domain' => 'main']);
         }
+        else { return view('fallback')->with('domain', 'main'); }
     });
 
 });

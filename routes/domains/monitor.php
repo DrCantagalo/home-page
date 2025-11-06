@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\MonitorController;
 
-Route::middleware(['check.cookie'])->group(function () {
+Route::middleware(['set.locale', 'check.cookie'])->group(function () {
 
     Route::get('/', function () {
         if(auth()->guest()) { return view('monitor.index'); }
@@ -48,6 +48,9 @@ Route::middleware(['avoid.robots'])->group(function () {
         }
         else { return view('fallback')->with('domain', 'monitor'); }
     });
+});
+
+Route::middleware(['set.locale', 'avoid.robots'])->group(function () {
 
     Route::post('signin', [MonitorController::class, 'signin']);
 

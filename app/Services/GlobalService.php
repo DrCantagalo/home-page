@@ -29,13 +29,12 @@ class GlobalService
             }
         }
         Session::put('avoid_monitor', 1);
-        
-        return json_encode(session()->all());/*
+
         return response()->json([
             'status' => 'ok',
             'action' => 'change-lang',
             'lang' => $lang
-        ]);*/
+        ]);
     }
 
     public function rememberme(Request $request)

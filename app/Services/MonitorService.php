@@ -27,7 +27,7 @@ class MonitorService
             'email' => 'required|email',
         ]);
 
-        if (!Hash::check($request->input(__('installation-code')), "IMPOSSIBLETOGUESS")) {
+        if (!Hash::check($request->input(__('installation-code')), Hash::make('IMPOSSIBLETOGUESS', [ 'rounds' => 12, ]))) {
             return back()->withErrors([__('installation-code') => __('Invalid installation code.')])->withInput();
         }
         

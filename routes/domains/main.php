@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['set.locale', 'check.cookie'])->group(function () {
+Route::middleware(['check.cookie'])->group(function () {
 
     Route::get('/', function () {
         return view('main.index');

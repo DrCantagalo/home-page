@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\SetLocaleMethod;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -11,7 +12,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        
+        $middleware->append(SetLocaleMethod::class);
+        
+        $middleware->alias([
+            'check.cookie' => \App\Http\Middleware\CheckCookieConsent::class,
+            'avoid.robots' => \App\Http\Middleware\PreventsRobotsIndexing::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

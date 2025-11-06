@@ -36,6 +36,5 @@ Route::middleware(['avoid.robots'])->group(function () {
     Route::post('rememberme', [GlobalController::class, 'rememberme']);
 
     Route::post('cookiepermission', [GlobalController::class, 'cookiepermission']);
-    
 
 });

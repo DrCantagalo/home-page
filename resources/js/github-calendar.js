@@ -4,7 +4,7 @@ import $ from 'jquery';
 $(function() {
   let currentURL = window.location.href;
   let currentFile = currentURL.substring(currentURL.lastIndexOf('/') + 1) || 'index';
-  if (currentFile == 'index') {
+  if (currentFile == 'index' && !isSubdomain()) {
     GitHubCalendar(".calendar", "DrCantagalo").then(function() {
       let html = $('.calendar').html();
       const translations = {
@@ -33,3 +33,8 @@ $(function() {
     });
   }
 });
+
+function isSubdomain() {
+  const hostname = window.location.hostname;
+  return hostname !== 'cantagalo.it' && hostname !== 'www.cantagalo.it';
+}

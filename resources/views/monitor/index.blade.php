@@ -4,11 +4,11 @@
 @section('main')
     <main class="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-12">
         <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 space-y-6">
-            <form method="post" action="{{url('/')}}/handler" enctype="multipart/form-data" 
+            <form method="post" action="signin" enctype="multipart/form-data" 
                 class="space-y-4">
                 @csrf
                 <h1 class="text-2xl font-semibold text-center text-gray-800">
-                    @lang('Sign in to') Laravel Monitor - {{ json_encode(session()->all()) }}
+                    @lang('Sign in to') Laravel Monitor
                 </h1>
                 <div>
                     <label for="email" 
@@ -42,7 +42,6 @@
                         @lang('Remember me in the next visit')
                     </label>
                 </div>
-                <input type="hidden" name="user-verb" value="sign-in">
                 <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white 
                     font-medium py-2 px-4 rounded-lg transition duration-300">
                         @lang('Send')

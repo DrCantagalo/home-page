@@ -45,6 +45,7 @@ Route::middleware(['avoid.robots'])->group(function () {
         }
         else { return view('fallback')->with('domain', 'monitor'); }
     });
+    
 });
 
 Route::middleware(['set.locale', 'avoid.robots'])->group(function () {

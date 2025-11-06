@@ -32,6 +32,7 @@ Route::middleware(['set.locale', 'check.cookie'])->group(function () {
 Route::middleware(['avoid.robots'])->group(function () {
 
     Route::get('cookies', function(){
+        $debug = json_encode(session()->all());
         if(session('templang', false)) { 
             $lang = session('templang');
             App::setLocale($lang);
@@ -44,7 +45,7 @@ Route::middleware(['avoid.robots'])->group(function () {
         if(session('avoid_monitor')) { session()->forget('avoid_monitor'); }
         if (session('show_cookie')) { 
             session()->forget('show_cookie');
-            return view('popups.cookies')->with(['lang' => $lang, 'domain' => 'monitor', 'debug' => json_encode(session()->all())]);
+            return view('popups.cookies')->with(['lang' => $lang, 'domain' => 'monitor', 'debug' => $debug]);
         }
         else { return view('fallback')->with('domain', 'monitor'); }
     });

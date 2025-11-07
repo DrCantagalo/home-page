@@ -9,6 +9,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['avoid.robots'])->group(function () {
 
-    Route::post('registerinstallation', [MonitorController::class, 'registerinstallation'])->middleware('throttle:10,1');
+    Route::post('registerinstallation', [APIController::class, 'registerinstallation'])->middleware('throttle:10,1');
 
 });

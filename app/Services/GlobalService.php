@@ -10,10 +10,6 @@ class GlobalService
 {
     public function changelanguage(Request $request)
     {
-        $request->validate([
-            'lang' => 'required|in:en,it,pt', 
-            'cookie-box' => 'nullable|boolean'
-        ]);
         $lang = $request->input('lang');
         $cookie_box = $request->input('cookie-box', false);
         if($cookie_box) { 
@@ -39,7 +35,6 @@ class GlobalService
 
     public function rememberme(Request $request)
     {
-        $request->validate(['id-token' => 'required|max:30']);
         $status = 'ok';
         $lang_changed = 0;
         $token = $request->input('id-token');
@@ -68,10 +63,6 @@ class GlobalService
     }
 
     public function cookiepermission(Request $request) {
-        $request->validate([
-            'id-token' => 'required_if:remember-decision,on|max:30',
-            'visits' => 'required|integer|min:1'
-        ]);
         $frontData = $request->except(['_token', 'remember-decision']);
         if(session('monitor_id', false)) {
             $monitor = Monitor::find(session('monitor_id'));

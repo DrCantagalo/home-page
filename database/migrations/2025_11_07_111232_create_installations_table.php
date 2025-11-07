@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('installations', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
+
+            $table->string('site_url');
+            $table->string('installation_hash')->unique();
+            $table->string('installation_code')->unique();
+            $table->string('api_token'); // hash sha256
+            $table->string('api_token_enc')->nullable(); // opcional: token original encriptado
+            $table->string('package_version')->nullable();
+            $table->string('ip_address')->nullable();
+
             $table->timestamps();
         });
     }

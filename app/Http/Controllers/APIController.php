@@ -19,6 +19,7 @@ class APIController extends Controller
             'site_url' => 'required|url',
             'package_version' => 'required|string',
             'installation_hash' => 'required|string',
+            'sanctum_token' => 'required|string'
         ]);
 
         return $this->handler->registerinstallation($request);

@@ -12,6 +12,7 @@ class APIService
         $siteUrl = $request->site_url;
         $version = $request->package_version;
         $clientIp = $request->ip();
+        $sanctumToken = $request->sanctum_token;
 
         $installation = Installation::where('installation_hash', $hash)->first();
 
@@ -23,16 +24,24 @@ class APIService
             ]);
         }
 
-        $ipMatch = $this->checkIpMatchesUrl($clientIp, $siteUrl);
+        $ipMatches = $this->checkIpMatchesUrl($clientIp, $siteUrl, $hash);
 
-        if(!$ipmatch) {
-            return response()->json(["aqui retorno pedindo adicionar txt"]);
+        if(!$ipMatches) {
+            return response()->json([
+                'status' => 'verification_failed',
+                'message' => 'Domain ownership could not be verified automatically.',
+                'reason' => 'IP address of the request does not match the resolved IPs for the provided domain.',
+                'dns_instructions' => [
+                    'txt_name' => '@',
+                    'txt_value' => "monitor-verification={$hash}",
+                    'note' => 'After adding the DNS TXT record, try registering the installation again.'
+                ]
+            ], 422);
         }
 
         $apiToken = Str::random(64);
         $installationCode = strtoupper(Str::random(12));
 
-        // 4. Criar registro
         $installation = Installation::create([
             'installation_hash' => $hash,
             'site_url' => $siteUrl,
@@ -41,17 +50,18 @@ class APIService
             'installation_code' => $installationCode,
             'api_token' => hash('sha256', $apiToken),
             'api_token_enc' => Crypt::encrypt($apiToken),
+            'sanctum_token_enc' => Crypt::encrypt($sanctumToken),
+            'sanctum_token_hash' => hash('sha256', $sanctumToken),
         ]);
 
         return response()->json([
             'status' => 'created',
             'installation_code' => $installationCode,
             'api_token' => $apiToken,
-            'ip_match' => $ipMatch,
         ]);
     }
 
-    private function checkIpMatchesUrl($clientIp, $url)
+    private function checkIpMatchesUrl(string $clientIp, string $url, string $hash): bool
     {
         $host = parse_url($url, PHP_URL_HOST);
 
@@ -59,9 +69,39 @@ class APIService
             return false;
         }
 
-        $dnsRecords = dns_get_record($host, DNS_A);
-        $validIps = array_column($dnsRecords, 'ip');
+        $dnsRecords = dns_get_record($host, DNS_A | DNS_AAAA | DNS_TXT);
 
-        return in_array($clientIp, $validIps);
+        if (!$dnsRecords) {
+            return false;
+        }
+
+        $domainIps = [];
+        $txtRecords = [];
+
+        // Extrai IPs (IPv4 e IPv6) e registros TXT
+        foreach ($dnsRecords as $record) {
+            if (!empty($record['ip'])) {
+                $domainIps[] = $record['ip'];
+            } elseif (!empty($record['ipv6'])) {
+                $domainIps[] = $record['ipv6'];
+            } elseif (!empty($record['txt'])) {
+                $txtRecords[] = trim($record['txt']);
+            }
+        }
+
+        foreach ($domainIps as $ip) {
+            if (@inet_pton($ip) === @inet_pton($clientIp)) {
+                return true;
+            }
+        }
+
+        foreach ($txtRecords as $txt) {
+            if (str_contains($txt, $hash)) {
+                return true;
+            }
+        }
+
+        return false;
     }
+
 }

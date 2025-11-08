@@ -19,10 +19,12 @@ return new class extends Migration
             $table->string('site_url');
             $table->string('installation_hash')->unique();
             $table->string('installation_code')->unique();
-            $table->string('api_token'); // hash sha256
-            $table->string('api_token_enc')->nullable(); // opcional: token original encriptado
+            $table->string('api_token');
+            $table->string('api_token_enc')->nullable();
             $table->string('package_version')->nullable();
             $table->string('ip_address')->nullable();
+            $table->text('sanctum_token_enc')->nullable()->after('api_token_enc');
+            $table->text('sanctum_token_hash')->nullable()->after('sanctum_token_enc');
 
             $table->timestamps();
         });

@@ -29,7 +29,7 @@ Route::middleware(['set.locale', 'check.cookie'])->group(function () {
     })->name('monitor.password');
 
     Route::get('installationterms/{lang?}', function ($lang = 'en') {
-        if(in_array($lang,['en', 'it', 'pt'])) { Session::put('lang', 'en'); }
+        if(!in_array($lang, ['en', 'it', 'pt'])) { Session::put('lang', 'en'); }
         else { Session::put('lang', $lang); }
         App::setLocale(session('lang'));
         return view('monitor.installationterms');

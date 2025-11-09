@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\MonitorController;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\App;
 
 Route::middleware(['set.locale', 'check.cookie'])->group(function () {
 

@@ -9,6 +9,6 @@ use App\Http\Controllers\APIController;
 
 Route::middleware(['avoid.robots'])->group(function () {
 
-    Route::post('registerinstallation', [APIController::class, 'registerinstallation'])->middleware('throttle:10,1');
+    Route::post('registerinstallation', [APIController::class, 'registerinstallation'])->middleware('throttle:2,1');
 
 });

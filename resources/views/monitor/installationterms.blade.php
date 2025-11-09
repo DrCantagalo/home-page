@@ -19,7 +19,7 @@
         <h2 class="text-2xl font-bold mb-4 text-gray-900">2. @lang('No Storage and No Access to User Data')</h2>
         <p class="mb-3">@lang('The Package was developed with the premise of privacy and complete data control by the end-user (you, the Package installer)').</p>
         <p class="mb-2"><span class="font-semibold">@lang('Data Storage'):</span> @lang('The Package DOES NOT store any user, site, or monitoring data on external servers. All data collected for monitoring (logs, metrics, etc.) are stored directly in your own database (Laravel Database) or in other resources within your infrastructure, according to the configurations you define').</p>
-        <p class="mb-2"><span class="f  ont-semibold">@lang('Data Access'):</span> @lang('The Package DOES NOT access, manipulate, or send the data from your application to us or to third parties. Access to monitoring data to populate the frontend interface is done directly via internal Package APIs within your own application, ensuring that the data flow remains entirely under your control').</p>
+        <p class="mb-2"><span class="font-semibold">@lang('Data Access'):</span> @lang('The Package DOES NOT access, manipulate, or send the data from your application to us or to third parties. Access to monitoring data to populate the frontend interface is done directly via internal Package APIs within your own application, ensuring that the data flow remains entirely under your control').</p>
     </article>
     <article class="mb-12">
         <h2 class="text-2xl font-bold mb-4 text-gray-900">3. @lang('User Responsibility (You)')</h2>

@@ -9,7 +9,7 @@ $(function(){
     let currentFile = currentURL.substring(currentURL.lastIndexOf('/') + 1) || 'index';
     if (!window.AppData.cookiePermission && 
         !currentFile.includes('legal') &&
-        !currentFile.includes('installationterms')) { 
+        !currentURL.includes('installationterms')) { 
         if (localStorage.getItem('visit_token') !== null) {
             let formData = { 'id-token': localStorage.getItem('visit_token') };
             $.post(window.location.origin + '/rememberme', formData, function(result) { 

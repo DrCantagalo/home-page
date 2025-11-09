@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\MonitorController;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\App;
 
 Route::middleware(['set.locale', 'check.cookie'])->group(function () {
 
@@ -26,6 +28,12 @@ Route::middleware(['set.locale', 'check.cookie'])->group(function () {
     Route::get('password', function () {
         return view('monitor.password');
     })->name('monitor.password');
+
+    Route::get('installationterms/{lang?}', function ($lang = 'en') {
+        Session::put('lang', $lang);
+        App::setLocale(session('lang'));
+        return view('monitor.installationterms');
+    });
 
 });
 

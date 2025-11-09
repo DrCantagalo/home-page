@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('api_token_enc')->nullable();
             $table->string('package_version')->nullable();
             $table->string('ip_address')->nullable();
-            $table->text('sanctum_token_enc')->nullable()->after('api_token_enc');
-            $table->text('sanctum_token_hash')->nullable()->after('sanctum_token_enc');
+            $table->text('sanctum_token_enc')->nullable()
+            $table->text('sanctum_token_hash')->nullable()
 
             $table->timestamps();
         });

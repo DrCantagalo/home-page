@@ -58,10 +58,10 @@ Route::middleware(['avoid.robots'])->group(function () {
 
 Route::middleware(['set.locale', 'avoid.robots'])->group(function () {
 
-    Route::post('signin', [MonitorController::class, 'signin']);
+    Route::post('signin', [MonitorController::class, 'signin'])->name('signin');
 
-    Route::post('initiatesignup', [MonitorController::class, 'initiatesignup']);
+    Route::post('initiatesignup', [MonitorController::class, 'initiatesignup'])->name('initiatesignup');
 
-    Route::post('createuser', [MonitorController::class, 'createuser']);
+    Route::post('createuser', [MonitorController::class, 'createuser'])->name('createuser');
 
 });

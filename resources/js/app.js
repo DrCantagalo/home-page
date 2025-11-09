@@ -10,7 +10,7 @@ $(function(){
     if (!window.AppData.cookiePermission && !currentFile.includes('legal')) { 
         if (localStorage.getItem('visit_token') !== null) {
             let formData = { 'id-token': localStorage.getItem('visit_token') };
-            $.post('rememberme', formData, function(result) { 
+            $.post(window.location.origin + '/rememberme', formData, function(result) { 
                 if(result.status == 'error') { 
                     localStorage.clear();
                     cookiePermission();
@@ -41,7 +41,7 @@ function cookiePermission() {
         document.body.appendChild(askPermission);
     }
     $('#cookies').hide();
-    $('#cookies').load('cookies', function(){ setTimeout(() => $('#cookies').fadeIn(200), 50); });
+    $('#cookies').load(window.location.origin + '/cookies', function(){ setTimeout(() => $('#cookies').fadeIn(200), 50); });
 }
 
 function changeLang(lang, option) {
@@ -49,7 +49,7 @@ function changeLang(lang, option) {
         "lang":lang,
         "cookie-box":option
     };
-    $.post('changelanguage', frontData, function(){
+    $.post(window.location.origin + '/changelanguage', frontData, function(){
         if (option) { cookiePermission(); }
         else { window.location.reload(); }
     });
@@ -79,7 +79,7 @@ $(document).on('submit', '#cookie-form', async function(e) {
         formArray.push({name: "id-token", value: idToken});
         localStorage.setItem('visit_token', idToken);
     }
-    $.post('cookiepermission', formArray, function(result) { 
+    $.post(window.location.origin + '/cookiepermission', formArray, function(result) { 
         if(result.lang_changed) { location.reload(); }
         $('#cookies').fadeOut(200);
     });
@@ -109,19 +109,5 @@ $('#password-toggle').on('click', function() {
         $('label[for=password-toggle').text(text);
     }
 });
-
-function loadClearCredentials() {
-    if (!document.getElementById('clear-credentials')) {
-        var showForm = document.createElement("div");
-        showForm.id = "clear-credentials";
-        document.body.appendChild(showForm);
-    }
-    $('#clear-credentials').hide();
-    $('#clear-credentials').load('timeflag', function() {
-        $('#clear-credentials').load('clearcredentials', function(){ 
-            setTimeout(() => $('#clear-credentials').fadeIn(200), 50);
-        });
-    });
-}
 
 window.loadClearCredentials = loadClearCredentials;

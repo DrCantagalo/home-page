@@ -5,7 +5,7 @@
     <main class="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-12">
         <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 space-y-6">
             @if (!session('email_temp', false) || !session('verification_code', false))
-                <form method="post" action="initiatesignup" enctype="multipart/form-data" 
+                <form method="post" action="{{ route('initiatesignup') }}" enctype="multipart/form-data" 
                     class="space-y-4">
                         @csrf
                         <h1 class="text-2xl font-semibold text-center text-gray-800">
@@ -46,7 +46,7 @@
                         </button>
                 </form>
             @else
-                <form method="post" action="createuser" enctype="multipart/form-data" 
+                <form method="post" action="{{ route('createuser') }}" enctype="multipart/form-data" 
                     class="space-y-4">
                         @csrf
                         <h1 class="text-2xl font-semibold text-center text-gray-800">

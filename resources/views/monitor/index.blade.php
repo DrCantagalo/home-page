@@ -4,7 +4,7 @@
 @section('main')
     <main class="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-12">
         <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 space-y-6">
-            <form method="post" action="signin" enctype="multipart/form-data" 
+            <form method="post" action="{{ route('signin') }}" enctype="multipart/form-data" 
                 class="space-y-4">
                 @csrf
                 <h1 class="text-2xl font-semibold text-center text-gray-800">

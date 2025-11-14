@@ -3,11 +3,14 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class APIService
 {
     public function registerinstallation(Request $request)
     {
+        $lang = $request->lang;
+        App::setLocale(session($lang,'en'));
         $hash = $request->installation_hash;
         $siteUrl = $request->site_url;
         $version = $request->package_version;
@@ -18,7 +21,8 @@ class APIService
 
         if ($installation) {
             return response()->json([
-                'status' => 'existing',
+                'status' => 'success',
+                'message' => __('We found your registration!'),
                 'installation_code' => $installation->installation_code,
                 'api_token' => Crypt::decrypt($installation->api_token_enc),
             ]);
@@ -28,14 +32,8 @@ class APIService
 
         if(!$ipMatches) {
             return response()->json([
-                'status' => 'verification_failed',
-                'message' => 'Domain ownership could not be verified automatically.',
-                'reason' => 'IP address of the request does not match the resolved IPs for the provided domain.',
-                'dns_instructions' => [
-                    'txt_name' => '@',
-                    'txt_value' => "monitor-verification={$hash}",
-                    'note' => 'After adding the DNS TXT record, try registering the installation again.'
-                ]
+                'status' => 'error',
+                'message' => __("Domain ownership could not be verified automatically: IP address of the request does not match the resolved IPs for the provided domain and no DNS TXT record found. Add to your DNS a txt record with name as '@' and value as") . " 'monitor-verification={$hash}'" . __("After adding the DNS TXT record, try registering the installation again.")
             ], 422);
         }
 
@@ -55,7 +53,8 @@ class APIService
         ]);
 
         return response()->json([
-            'status' => 'created',
+            'status' => 'success',
+            'message' => __("We've created a new registration for your installation."),
             'installation_code' => $installationCode,
             'api_token' => $apiToken,
         ]);
